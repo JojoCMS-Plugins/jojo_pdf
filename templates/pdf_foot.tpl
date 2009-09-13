@@ -1,0 +1,1 @@
+{jojoHook hook="pdf_foot"}
