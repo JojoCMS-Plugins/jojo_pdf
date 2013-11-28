@@ -61,10 +61,11 @@ class Jojo_Plugin_Jojo_pdf extends Jojo_Plugin
             if ($k != 'index') $smarty->assign($k, $v); //do not assign a variable called 'index' in case it is already used elsewhere
         }
         $html = $smarty->fetch('pdf_template.tpl');
-
-        require(_PLUGINDIR . '/jojo_pdf/external/dompdf/dompdf_config.inc.php');
-        $DOMPDF_PDF_BACKEND = "CPDF";
-        $DOMPDF_DPI = 300;
+        $html = Jojo::applyFilter('output', $html);
+        $html = mb_convert_encoding($html, 'HTML-ENTITIES', 'UTF-8');
+        
+        $file = Jojo::listPlugins('external/dompdf_config.inc.php');      
+        require($file[0]);
         $dompdf = new DOMPDF();
         $base = parse_url(_SITEURL);
         $dompdf = new DOMPDF();
