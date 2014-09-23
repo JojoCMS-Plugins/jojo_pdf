@@ -54,6 +54,7 @@ class Jojo_Plugin_Jojo_pdf extends Jojo_Plugin
         $content = $page->getContent();
         $content['content'] = str_replace('&nbsp;', ' ', $content['content']); //non-breaking spaces don't seem to translate properly, so strip them out
         $content['content'] = preg_replace('/\[\[.*\]\]/', '', $content['content']); //strip out filter references too
+        $content['title'] = html_entity_decode(strip_tags($content['title']));
         $smarty->assign('numbreadcrumbs', count($content['breadcrumbs']));
         $smarty->assign('pg_language', $page->getValue('pg_language'));
         foreach($content as $k => $v) {
